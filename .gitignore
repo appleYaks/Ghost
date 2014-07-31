@@ -31,9 +31,6 @@ projectFilesBackup
 .build
 .dist
 
-/core/client/tpl/hbs-tpl.js
-/core/client/assets/css
-/core/client/assets/fonts
 /core/server/data/export/exported*
 /docs
 /_site
@@ -54,7 +51,10 @@ CHANGELOG.md
 config.js
 
 # Built asset files
-/core/built
+#/core/built
+#/core/client/tpl/hbs-tpl.js
+#/core/client/assets/css
+#/core/client/assets/fonts
 
 # Coverage reports
 coverage.html
