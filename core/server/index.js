@@ -105,7 +105,7 @@ function builtFilesExist() {
     return when.all(deferreds);
 }
 
-function startGhost(deferred) {
+function startGhost(deferred, server) {
 
     return function () {
         // Tell users if their node version is not supported, and exit
@@ -160,7 +160,7 @@ function startGhost(deferred) {
             });
         }
 
-        deferred.resolve();
+        deferred.resolve(server);
     };
 }
 
@@ -239,7 +239,7 @@ function init(server) {
         routes.api(server);
 
         // Set up Admin routes
-        routes.admin(server);
+        // routes.admin(server);
 
         // Set up Frontend routes
         routes.frontend(server);
@@ -260,7 +260,7 @@ function init(server) {
                 /*jshint unused:false*/
                 server.listen(
                     config.getSocket(),
-                    startGhost(deferred)
+                    startGhost(deferred, server)
                 );
                 fs.chmod(config.getSocket(), '0660');
             });
@@ -269,7 +269,7 @@ function init(server) {
             server.listen(
                 config().server.port,
                 config().server.host,
-                startGhost(deferred)
+                startGhost(deferred, server)
             );
         }
 
