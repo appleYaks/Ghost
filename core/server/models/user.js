@@ -172,7 +172,7 @@ User = ghostBookshelf.Model.extend({
                     if (!matched) {
                         return when(self.setWarning(user)).then(function (remaining) {
                             s = (remaining > 1) ? 's' : '';
-                            return when.reject(new Error('Your password is incorrect.<br>' +
+                            return when.reject(new Error('The username or password you entered was incorrect.<br>' +
                                 remaining + ' attempt' + s + ' remaining!'));
                         });
                     }
@@ -188,7 +188,7 @@ User = ghostBookshelf.Model.extend({
 
         }, function (error) {
             if (error.message === 'NotFound' || error.message === 'EmptyResponse') {
-                return when.reject(new Error('There is no user with that email address.'));
+                return when.reject(new Error('The username or password you entered was incorrect.'));
             }
 
             return when.reject(error);
@@ -220,7 +220,7 @@ User = ghostBookshelf.Model.extend({
             return nodefn.call(bcrypt.compare, oldPassword, user.get('password'));
         }).then(function (matched) {
             if (!matched) {
-                return when.reject(new Error('Your password is incorrect'));
+                return when.reject(new Error('The username or password you entered was incorrect.'));
             }
             return nodefn.call(bcrypt.genSalt);
         }).then(function (salt) {
