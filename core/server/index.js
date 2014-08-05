@@ -239,7 +239,9 @@ function init(server) {
         routes.api(server);
 
         // Set up Admin routes
-        // routes.admin(server);
+        if (config().adminIsEnabled === true) {
+            routes.admin(server);
+        }
 
         // Set up Frontend routes
         routes.frontend(server);
