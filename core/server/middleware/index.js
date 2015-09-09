@@ -150,9 +150,11 @@ setupMiddleware = function setupMiddleware(blogAppInstance, adminApp) {
     blogApp.use(routes.apiBaseUri, routes.api(middleware));
 
     // Mount admin express app to /ghost and set up routes
-    adminApp.use(redirectToSetup);
-    adminApp.use(routes.admin());
-    blogApp.use('/ghost', adminApp);
+    if (config.adminEnabled !== false) {
+        adminApp.use(redirectToSetup);
+        adminApp.use(routes.admin());
+        blogApp.use('/ghost', adminApp);
+    }
 
     // Set up Frontend routes
     blogApp.use(routes.frontend(middleware));
